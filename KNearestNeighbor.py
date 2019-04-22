@@ -2,6 +2,9 @@ import numpy as np
 import operator
 import GetData as dataHandler
 
+
+#resource used for this code https://anujkatiyal.com/blog/2017/10/01/ml-knn/#.XL26Z-hKjct
+
 def find_k_nearest_neighbors(x_train, test_point, k):
     distances = []
     neighbors = []
@@ -62,4 +65,4 @@ x_train, y_train = dataHandler.split_data_into_XY(training_set, 4, 0, 3)
 
 
 k = 4
-K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k)
+K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
