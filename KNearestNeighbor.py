@@ -3,10 +3,17 @@ import numpy as np
 import copy
 
 
-def find_k_nearest_neighbors(vector, training_data, k):
-    training_data_copy = copy.deepcopy(training_data)
-    for i in range(1, k):
-        pass
+def find_k_nearest_neighbors(test_example, training_data, k):
+    distances = []
+    neighbors = []
+    number_of_training_examples = training_data.shape[0]
+    for i in range(0, number_of_training_examples):
+        training_example = training_data[i]
+        dist = find_distance(training_example, test_example)
+        distances.append((i, dist))
+    distances.sort(key=operator.itemgetter(1))
+    for x in range(k):
+        neighbors.append()
 
 
 def find_distance(vector1, vector2):
