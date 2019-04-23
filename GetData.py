@@ -8,6 +8,13 @@ def get_data_from_file(filename):
     np.random.shuffle(dataset)
     return dataset
 
+def get_class_labels(dataset, class_index):
+    labels = []
+    for point in dataset:
+        label = point[class_index]
+        labels.append(label)
+    return labels
+
 
 def split_data_into_XY(dataset, class_index, first_attribute_index, last_attribute_index):
     X = dataset[:, first_attribute_index:last_attribute_index]

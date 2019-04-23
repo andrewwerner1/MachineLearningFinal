@@ -17,25 +17,43 @@ def find_accuracy(y_pred, y_actual, classification):
     return sum / len(y_hat_data)
 
 
-def find_total_correct_labels(y_pred, y_actual):
-    sum = 0
-    for i in range(0, len(y_actual)):
-        y_hat = y_pred[i]
-        y = y_actual[i]
-        if(round(y) == round(y_hat)):
-            sum += 1
-    return sum / len(y_actual)
 
 
-def find_accuracy(y_pred, y_actual, classification):
-    if y_pred.shape[0] > 1:
-        y_pred = y_pred[0]
-    if classification:
-        total_correct_labels = find_total_correct_labels(y_pred, y_actual)
-        return total_correct_labels / len(y_actual)
-    else:
-        val = 1 - (np.abs(y_actual - y_pred).sum() / len(y_actual))
-        return val
+def find_accuracy(y_pred, y_actual):
+    correct = 0
+    for i in range(0, len(y_pred)):
+        estimated_class_val = y_pred[i]
+        class_val = y_actual[i]
+        if float(estimated_class_val) == float(class_val):
+            correct += 1
+    return correct / len(y_pred)
 
-def recall(y_pred, y_actual, classification):
-    pass
+#only use for binary classification problems
+def find_precision(y_pred, y_actual):
+    true_positive = 0
+    false_positive = 0
+    for i in range(0, len(y_pred)):
+        estimated_class_val = y_pred[i]
+        class_val = y_actual[i]
+        if float(estimated_class_val) == float(1):
+            if(float(class_val) == float(1)):
+                true_positive += 1
+            else:
+                false_positive += 1
+    return true_positive / (true_positive + false_positive)
+
+#only use for binary classification problems
+def find_recall(y_pred, y_actual):
+    true_positive = 0
+    false_negative = 0
+    for i in range(0, len(y_pred)):
+        estimated_class_val = y_pred[i]
+        class_val = y_actual[i]
+        if (float(class_val) == float(1)):
+            if(float(estimated_class_val) == float(1)):
+                true_positive += 1
+            else:
+                false_negative += 1
+    return true_positive / (true_positive + false_negative)
+
+
