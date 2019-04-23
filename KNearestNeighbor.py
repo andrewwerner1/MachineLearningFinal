@@ -2,6 +2,7 @@ import numpy as np
 import operator
 import GetData as dataHandler
 
+#this seems like a good source  https://anujkatiyal.com/blog/2017/10/01/ml-knn/#.XL0GXOhKhPY
 
 #resource used for this code https://anujkatiyal.com/blog/2017/10/01/ml-knn/#.XL26Z-hKjct
 
@@ -54,15 +55,15 @@ def K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, classification=True)
     return output_classes
 
 #test
-print('test')
-dataset = dataHandler.get_data_from_file("C:/Users/WernerAS/PycharmProjects/TestEnv/Data/IrisModified.csv")
-split_data_sets = dataHandler.get_k_folds(dataset, k=5)
+#print('test')
+#dataset = dataHandler.get_data_from_file("C:/Users/andre/PycharmProjects/MachineLearningFinal/DataIris.csv")
+#split_data_sets = dataHandler.get_k_folds(dataset, k=5)#
 
-test_set = split_data_sets[0]
-x_test, y_test = dataHandler.split_data_into_XY(test_set, 4, 0, 3)
-training_set = dataHandler.concatenate_sets(split_data_sets, 1, 5)
-x_train, y_train = dataHandler.split_data_into_XY(training_set, 4, 0, 3)
+#test_set = split_data_sets[0]
+#x_test, y_test = dataHandler.split_data_into_XY(test_set, 4, 0, 3)
+#training_set = dataHandler.concatenate_sets(split_data_sets, 1, 5)
+#x_train, y_train = dataHandler.split_data_into_XY(training_set, 4, 0, 3)
 
 
-k = 4
-K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
+#k = 4
+#K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)

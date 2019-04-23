@@ -11,7 +11,7 @@ def get_data_from_file(filename):
 
 def split_data_into_XY(dataset, class_index, first_attribute_index, last_attribute_index):
     X = dataset[:, first_attribute_index:last_attribute_index]
-    Y_data = dataset[:, class_index]
+    Y_data = dataset[:, class_index].reshape(len(X), 1)
     # Create a container array around Y
     Y = np.array(Y_data)
     return X, Y
@@ -30,13 +30,13 @@ def concatenate_sets(training_sets, start_index, length):
 
 
 #test
-print('test')
-dataset = get_data_from_file("C:/Users/WernerAS/PycharmProjects/TestEnv/Data/IrisModified.csv")
-split_data_sets = get_k_folds(dataset, k=5)
+#print('test')
+#dataset = get_data_from_file("C:/Users/andre/PycharmProjects/MachineLearningFinal/Data/Iris.csv")
+#split_data_sets = get_k_folds(dataset, k=5)
 
-k_fold_first_set = split_data_sets[0]
-X,Y = split_data_into_XY(k_fold_first_set, 4, 0, 3)
+#k_fold_first_set = split_data_sets[0]
+#X,Y = split_data_into_XY(k_fold_first_set, 4, 0, 3)
 
-reformed_dataset = concatenate_sets(split_data_sets, 0, 5)
+#reformed_dataset = concatenate_sets(split_data_sets, 0, 5)
 
-vowel = ''
+#vowel = ''
