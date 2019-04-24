@@ -10,35 +10,34 @@ import KNearestNeighbor as Knn
 import numpy as np
 
 
-# DataSet URL: https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/ (breast-cancer-wisconsin.data)
-#Class 2 for benign and 4 for malignant
+data = common.read_csv('C:/Users/andre/PycharmProjects/MachineLearningFinal/Data/vote.csv')
 
 
+class_index = 0
+first_attribute_index = 1
+last_attribute_index = 16
 
-data = common.read_csv("C:/Users/andre/PycharmProjects/MachineLearningFinal/Data/breastCancer.csv")
-
-# since first feature is just an id number, this doesn't provide any useful information
-common.remove_nth_column(data, 0)
-
-class_index = 9
-first_attribute_index = 0
-last_attribute_index = 8
-
-#update class lables 2=>0 and 4=> 1
+#update class lables
 for point in data:
-    if point[class_index] == '2':
+    if point[class_index] == 'republican':
         point[class_index] = '0'
-    elif point[class_index] == '4':
+    elif point[class_index] == 'democrat':
         point[class_index] = '1'
 
+#make attribute values numeric
+for point in data:
+    for j in range(len(point)):
+        if point[j] == 'y':
+            point[j] = '1'
+        elif point[j] == '?':
+            point[j] = 0
+        elif point[j] == 'n':
+            point[j] = -1
 
 #remove data points with missing attributes (since there are only 16 out of over 600 data points)
 common.remove_points_with_missing_attributes(data)
 
 shuffle(data)
-
-
-
 
 def split_data_in_ten_parts(data,  class_index):
     list1 = []
@@ -121,7 +120,7 @@ shuffle(set9)
 shuffle(set10)
 
 #define tunable parameters
-k=3
+k = 3
 
 print('Test 1')
 training_set = set1 + set2 + set3 + set4 + set5 + set6 + set7 + set8 + set9
@@ -303,7 +302,3 @@ print('measured accuracy: ' + str(accuracy))
 print('measured precision: ' + str(precision))
 print('measured recall: ' + str(recall))
 print('\n')
-
-
-
-

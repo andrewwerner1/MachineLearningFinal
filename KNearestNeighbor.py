@@ -34,7 +34,7 @@ def predictKnnClassForClassification(neighbor_indices, y_train):
     classVotes = {}
     for i in range(0, len(neighbor_indices)):
         neighbor_index = neighbor_indices[i]
-        neighbor = y_train[neighbor_index]
+        neighbor = y_train[neighbor_index][0]
         if neighbor in classVotes:
             classVotes[neighbor] += 1
         else:

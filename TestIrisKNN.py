@@ -6,39 +6,33 @@ import random
 from random import shuffle
 import metrics_testing as mt
 import GetData as data_handler
-import KNearestNeighbor as Knn
 import numpy as np
+import KNearestNeighbor as Knn
 
 
-# DataSet URL: https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/ (breast-cancer-wisconsin.data)
-#Class 2 for benign and 4 for malignant
+#URL https://archive.ics.uci.edu/ml/datasets/Iris
 
 
+data = common.read_csv('C:/Users/andre/PycharmProjects/MachineLearningFinal/Data/iris.csv')
 
-data = common.read_csv("C:/Users/andre/PycharmProjects/MachineLearningFinal/Data/breastCancer.csv")
-
-# since first feature is just an id number, this doesn't provide any useful information
-common.remove_nth_column(data, 0)
-
-class_index = 9
+class_index = 4
 first_attribute_index = 0
-last_attribute_index = 8
+last_attribute_index = 3
 
-#update class lables 2=>0 and 4=> 1
+#update class lables
 for point in data:
-    if point[class_index] == '2':
+    if point[class_index] == 'Iris-setosa':
         point[class_index] = '0'
-    elif point[class_index] == '4':
+    elif point[class_index] == 'Iris-versicolor':
         point[class_index] = '1'
+    elif point[class_index] == 'Iris-virginica':
+        point[class_index] = '2'
 
 
 #remove data points with missing attributes (since there are only 16 out of over 600 data points)
 common.remove_points_with_missing_attributes(data)
 
 shuffle(data)
-
-
-
 
 def split_data_in_ten_parts(data,  class_index):
     list1 = []
@@ -53,14 +47,17 @@ def split_data_in_ten_parts(data,  class_index):
     list10 = []
     listClass0 = []
     listClass1 = []
+    listClass2 = []
     data_copy = copy.deepcopy(data)
 
     for point in data_copy:
         class_val = point[class_index]
         if(float(class_val) == float('0')):
             listClass0.append(point)
-        else:
+        elif(float(class_val) == float('1')):
             listClass1.append(point)
+        else:
+            listClass2.append(point)
     for i in range(0, len(listClass0)):
         point = listClass0[i]
         if((i % 10) == 0):
@@ -105,6 +102,28 @@ def split_data_in_ten_parts(data,  class_index):
             list9.append(point)
         elif((i % 10) == 9):
             list10.append(point)
+    for i in range(0, len(listClass2)):
+        point = listClass2[i]
+        if((i % 10) == 0):
+            list1.append(point)
+        elif((i % 10) == 1):
+            list2.append(point)
+        elif((i % 10) == 2):
+            list3.append(point)
+        elif((i % 10) == 3):
+            list4.append(point)
+        elif((i % 10) == 4):
+            list5.append(point)
+        elif((i % 10) == 5):
+            list6.append(point)
+        elif((i % 10) == 6):
+            list7.append(point)
+        elif((i % 10) == 7):
+            list8.append(point)
+        elif((i % 10) == 8):
+            list9.append(point)
+        elif((i % 10) == 9):
+            list10.append(point)
     return list1, list2, list3, list4, list5, list6, list7, list8, list9, list10
 
 
@@ -120,8 +139,9 @@ shuffle(set8)
 shuffle(set9)
 shuffle(set10)
 
+
 #define tunable parameters
-k=3
+k = 3
 
 print('Test 1')
 training_set = set1 + set2 + set3 + set4 + set5 + set6 + set7 + set8 + set9
@@ -134,11 +154,7 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-precision = mt.find_precision(estimated_output, actual_output)
-recall = mt.find_recall(estimated_output, actual_output)
 print('measured accuracy: ' + str(accuracy))
-print('measured precision: ' + str(precision))
-print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 2')
@@ -152,11 +168,7 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-precision = mt.find_precision(estimated_output, actual_output)
-recall = mt.find_recall(estimated_output, actual_output)
 print('measured accuracy: ' + str(accuracy))
-print('measured precision: ' + str(precision))
-print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 3')
@@ -170,11 +182,7 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-precision = mt.find_precision(estimated_output, actual_output)
-recall = mt.find_recall(estimated_output, actual_output)
 print('measured accuracy: ' + str(accuracy))
-print('measured precision: ' + str(precision))
-print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 4')
@@ -188,11 +196,7 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-precision = mt.find_precision(estimated_output, actual_output)
-recall = mt.find_recall(estimated_output, actual_output)
 print('measured accuracy: ' + str(accuracy))
-print('measured precision: ' + str(precision))
-print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 5')
@@ -206,11 +210,7 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-precision = mt.find_precision(estimated_output, actual_output)
-recall = mt.find_recall(estimated_output, actual_output)
 print('measured accuracy: ' + str(accuracy))
-print('measured precision: ' + str(precision))
-print('measured recall: ' + str(recall))
 print('\n')
 
 
@@ -225,11 +225,7 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-precision = mt.find_precision(estimated_output, actual_output)
-recall = mt.find_recall(estimated_output, actual_output)
 print('measured accuracy: ' + str(accuracy))
-print('measured precision: ' + str(precision))
-print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 7')
@@ -243,11 +239,7 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-precision = mt.find_precision(estimated_output, actual_output)
-recall = mt.find_recall(estimated_output, actual_output)
 print('measured accuracy: ' + str(accuracy))
-print('measured precision: ' + str(precision))
-print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 8')
@@ -261,11 +253,7 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-precision = mt.find_precision(estimated_output, actual_output)
-recall = mt.find_recall(estimated_output, actual_output)
 print('measured accuracy: ' + str(accuracy))
-print('measured precision: ' + str(precision))
-print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 9')
@@ -279,11 +267,7 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-precision = mt.find_precision(estimated_output, actual_output)
-recall = mt.find_recall(estimated_output, actual_output)
 print('measured accuracy: ' + str(accuracy))
-print('measured precision: ' + str(precision))
-print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 10')
@@ -297,13 +281,7 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-precision = mt.find_precision(estimated_output, actual_output)
-recall = mt.find_recall(estimated_output, actual_output)
 print('measured accuracy: ' + str(accuracy))
-print('measured precision: ' + str(precision))
-print('measured recall: ' + str(recall))
 print('\n')
-
-
 
 
