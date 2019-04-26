@@ -120,7 +120,7 @@ shuffle(set10)
 
 #define tunable parameters
 numb_hidden_nodes = 3
-numb_iterations = 50
+numb_iterations = 0
 numb_outputs = 2
 learning_rate = 0.1
 
@@ -131,6 +131,7 @@ v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes,
 print('v weights found: ' + str(v) )
 print('w weights found: ' + str(w))
 estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+new_features = estimated_output
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
 precision = mt.find_precision(estimated_output, actual_output)

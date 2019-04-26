@@ -6,6 +6,8 @@ import random
 from random import shuffle
 import metrics_testing as mt
 import GetData as data_handler
+import KNearestNeighbor as Knn
+import numpy as np
 
 #URL for dataset https://archive.ics.uci.edu/ml/datasets/glass+identification
 
@@ -235,9 +237,10 @@ shuffle(set10)
 
 #define tunable parameters
 numb_hidden_nodes = 20
-numb_iterations = 20
+numb_iterations = 50
 numb_outputs = 7
 learning_rate = 0.1
+k=3
 
 
 print('Test 1')
@@ -246,7 +249,15 @@ test_set = set10
 v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes, numb_iterations, numb_outputs, learning_rate)
 print('v weights found: ' + str(v) )
 print('w weights found: ' + str(w))
-estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#estimated output codes from ANN becomes new feature values
+estimated_output_codes_test_set = b.get_estimated_output_code(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+estimated_output_codes_training_set = b.get_estimated_output_code(training_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#concatenate new feature values to outputs
+x_test = np.asarray(estimated_output_codes_test_set, dtype=float)
+y_test = data_handler.get_class_labels(test_set, class_index)
+x_train = np.asarray(estimated_output_codes_training_set, dtype=float)
+y_train = data_handler.get_class_labels(training_set, class_index)
+estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
 error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
@@ -260,7 +271,15 @@ test_set = set9
 v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes, numb_iterations, numb_outputs, learning_rate)
 print('v weights found: ' + str(v) )
 print('w weights found: ' + str(w))
-estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#estimated output codes from ANN becomes new feature values
+estimated_output_codes_test_set = b.get_estimated_output_code(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+estimated_output_codes_training_set = b.get_estimated_output_code(training_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#concatenate new feature values to outputs
+x_test = np.asarray(estimated_output_codes_test_set, dtype=float)
+y_test = data_handler.get_class_labels(test_set, class_index)
+x_train = np.asarray(estimated_output_codes_training_set, dtype=float)
+y_train = data_handler.get_class_labels(training_set, class_index)
+estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
 error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
@@ -274,7 +293,15 @@ test_set = set8
 v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes, numb_iterations, numb_outputs, learning_rate)
 print('v weights found: ' + str(v) )
 print('w weights found: ' + str(w))
-estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#estimated output codes from ANN becomes new feature values
+estimated_output_codes_test_set = b.get_estimated_output_code(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+estimated_output_codes_training_set = b.get_estimated_output_code(training_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#concatenate new feature values to outputs
+x_test = np.asarray(estimated_output_codes_test_set, dtype=float)
+y_test = data_handler.get_class_labels(test_set, class_index)
+x_train = np.asarray(estimated_output_codes_training_set, dtype=float)
+y_train = data_handler.get_class_labels(training_set, class_index)
+estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
 error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
@@ -288,7 +315,15 @@ test_set = set7
 v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes, numb_iterations, numb_outputs, learning_rate)
 print('v weights found: ' + str(v) )
 print('w weights found: ' + str(w))
-estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#estimated output codes from ANN becomes new feature values
+estimated_output_codes_test_set = b.get_estimated_output_code(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+estimated_output_codes_training_set = b.get_estimated_output_code(training_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#concatenate new feature values to outputs
+x_test = np.asarray(estimated_output_codes_test_set, dtype=float)
+y_test = data_handler.get_class_labels(test_set, class_index)
+x_train = np.asarray(estimated_output_codes_training_set, dtype=float)
+y_train = data_handler.get_class_labels(training_set, class_index)
+estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
 error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
@@ -302,7 +337,15 @@ test_set = set6
 v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes, numb_iterations, numb_outputs, learning_rate)
 print('v weights found: ' + str(v) )
 print('w weights found: ' + str(w))
-estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#estimated output codes from ANN becomes new feature values
+estimated_output_codes_test_set = b.get_estimated_output_code(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+estimated_output_codes_training_set = b.get_estimated_output_code(training_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#concatenate new feature values to outputs
+x_test = np.asarray(estimated_output_codes_test_set, dtype=float)
+y_test = data_handler.get_class_labels(test_set, class_index)
+x_train = np.asarray(estimated_output_codes_training_set, dtype=float)
+y_train = data_handler.get_class_labels(training_set, class_index)
+estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
 error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
@@ -317,7 +360,15 @@ test_set = set5
 v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes, numb_iterations, numb_outputs, learning_rate)
 print('v weights found: ' + str(v) )
 print('w weights found: ' + str(w))
-estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#estimated output codes from ANN becomes new feature values
+estimated_output_codes_test_set = b.get_estimated_output_code(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+estimated_output_codes_training_set = b.get_estimated_output_code(training_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#concatenate new feature values to outputs
+x_test = np.asarray(estimated_output_codes_test_set, dtype=float)
+y_test = data_handler.get_class_labels(test_set, class_index)
+x_train = np.asarray(estimated_output_codes_training_set, dtype=float)
+y_train = data_handler.get_class_labels(training_set, class_index)
+estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
 error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
@@ -331,7 +382,15 @@ test_set = set4
 v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes, numb_iterations, numb_outputs, learning_rate)
 print('v weights found: ' + str(v) )
 print('w weights found: ' + str(w))
-estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#estimated output codes from ANN becomes new feature values
+estimated_output_codes_test_set = b.get_estimated_output_code(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+estimated_output_codes_training_set = b.get_estimated_output_code(training_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#concatenate new feature values to outputs
+x_test = np.asarray(estimated_output_codes_test_set, dtype=float)
+y_test = data_handler.get_class_labels(test_set, class_index)
+x_train = np.asarray(estimated_output_codes_training_set, dtype=float)
+y_train = data_handler.get_class_labels(training_set, class_index)
+estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
 error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
@@ -345,7 +404,15 @@ test_set = set3
 v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes, numb_iterations, numb_outputs, learning_rate)
 print('v weights found: ' + str(v) )
 print('w weights found: ' + str(w))
-estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#estimated output codes from ANN becomes new feature values
+estimated_output_codes_test_set = b.get_estimated_output_code(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+estimated_output_codes_training_set = b.get_estimated_output_code(training_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#concatenate new feature values to outputs
+x_test = np.asarray(estimated_output_codes_test_set, dtype=float)
+y_test = data_handler.get_class_labels(test_set, class_index)
+x_train = np.asarray(estimated_output_codes_training_set, dtype=float)
+y_train = data_handler.get_class_labels(training_set, class_index)
+estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
 error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
@@ -359,7 +426,15 @@ test_set = set2
 v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes, numb_iterations, numb_outputs, learning_rate)
 print('v weights found: ' + str(v) )
 print('w weights found: ' + str(w))
-estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#estimated output codes from ANN becomes new feature values
+estimated_output_codes_test_set = b.get_estimated_output_code(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+estimated_output_codes_training_set = b.get_estimated_output_code(training_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#concatenate new feature values to outputs
+x_test = np.asarray(estimated_output_codes_test_set, dtype=float)
+y_test = data_handler.get_class_labels(test_set, class_index)
+x_train = np.asarray(estimated_output_codes_training_set, dtype=float)
+y_train = data_handler.get_class_labels(training_set, class_index)
+estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
 error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
@@ -373,7 +448,15 @@ test_set = set1
 v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes, numb_iterations, numb_outputs, learning_rate)
 print('v weights found: ' + str(v) )
 print('w weights found: ' + str(w))
-estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#estimated output codes from ANN becomes new feature values
+estimated_output_codes_test_set = b.get_estimated_output_code(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+estimated_output_codes_training_set = b.get_estimated_output_code(training_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+#concatenate new feature values to outputs
+x_test = np.asarray(estimated_output_codes_test_set, dtype=float)
+y_test = data_handler.get_class_labels(test_set, class_index)
+x_train = np.asarray(estimated_output_codes_training_set, dtype=float)
+y_train = data_handler.get_class_labels(training_set, class_index)
+estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
 error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)

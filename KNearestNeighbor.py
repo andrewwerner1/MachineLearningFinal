@@ -43,6 +43,19 @@ def predictKnnClassForClassification(neighbor_indices, y_train):
     return sortedVotes[0][0]
 
 
+def find_averaged_feature_vals(neighbor_indices, x_train, k):
+    average_features = []
+    numb_of_features = len(x_train[0])
+    for feature_index in range(numb_of_features):
+        feature_sum = 0
+        for i in range(len(neighbor_indices)):
+            neighbor_index = neighbor_indices[i]
+            feature_val = x_train[neighbor_index][feature_index]
+            feature_sum += feature_val
+        feature_avg = feature_sum / k
+        average_features.append(feature_avg)
+    return average_features
+
 def K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, classification=True):
     output_classes = []
     for i in range(0, x_test.shape[0]):
@@ -53,6 +66,24 @@ def K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, classification=True)
             predictedClass = predictKnnClassForRegression(neighbor_indices, y_train)
         output_classes.append((predictedClass))
     return output_classes
+
+
+
+
+
+def K_Nearest_Neighbor_with_feature_averaging(x_train, x_test, y_train, y_test, k, classification=True):
+    output_classes = []
+    averaged_feature_vals = []
+    for i in range(0, x_test.shape[0]):
+        neighbor_indices = find_k_nearest_neighbors(x_train, x_test[i], k)
+        if(classification):
+            predictedClass = predictKnnClassForClassification(neighbor_indices, y_train)
+            averaged_feature_vals_row = find_averaged_feature_vals(neighbor_indices, x_train, k)
+        else:
+            predictedClass = predictKnnClassForRegression(neighbor_indices, y_train)
+        output_classes.append((predictedClass))
+        averaged_feature_vals.append(averaged_feature_vals_row)
+    return averaged_feature_vals, output_classes
 
 #test
 #print('test')

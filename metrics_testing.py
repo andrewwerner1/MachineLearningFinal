@@ -30,7 +30,8 @@ def find_accuracy(y_pred, y_actual):
 
 #only use for binary classification problems
 def find_precision(y_pred, y_actual):
-    true_positive = 0
+    #make very small value to avoid divide by zero
+    true_positive = 1E-15
     false_positive = 0
     for i in range(0, len(y_pred)):
         estimated_class_val = y_pred[i]
@@ -44,7 +45,7 @@ def find_precision(y_pred, y_actual):
 
 #only use for binary classification problems
 def find_recall(y_pred, y_actual):
-    true_positive = 0
+    true_positive = 1E-15
     false_negative = 0
     for i in range(0, len(y_pred)):
         estimated_class_val = y_pred[i]

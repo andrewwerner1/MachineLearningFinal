@@ -121,7 +121,7 @@ shuffle(set9)
 shuffle(set10)
 
 #define tunable parameters
-k=3
+k=5
 
 print('Test 1')
 training_set = set1 + set2 + set3 + set4 + set5 + set6 + set7 + set8 + set9

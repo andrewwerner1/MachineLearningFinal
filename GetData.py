@@ -15,9 +15,20 @@ def get_class_labels(dataset, class_index):
         labels.append(label)
     return labels
 
+def concatenate_feature_vals_with_labels(feature_vals, labels):
+    dataset = []
+    for i in range(len(labels)):
+        row = feature_vals[i]
+        label = labels[i]
+        row.append(label)
+        dataset.append(row)
+    return dataset
+
+
 
 def split_data_into_XY(dataset, class_index, first_attribute_index, last_attribute_index):
-    X = dataset[:, first_attribute_index:last_attribute_index]
+    length = last_attribute_index + 1
+    X = dataset[:, first_attribute_index:length]
     Y_data = dataset[:, class_index].reshape(len(X), 1)
     # Create a container array around Y
     Y = np.array(Y_data)

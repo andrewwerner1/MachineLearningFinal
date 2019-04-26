@@ -287,3 +287,13 @@ def get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs,
         estimated_class_val = find_estimated_class_val(numb_outputs, numb_hidden_nodes, v, w, input)
         estimates.append(estimated_class_val)
     return estimates
+
+
+#gets actual output from ANN without modyfing it to represent class value
+def get_estimated_output_code(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w):
+    output_codes = []
+    for point in test_set:
+        input, class_val = find_input_and_class_val(point, class_index)
+        class_val_code = find_estimated_class_value_code(numb_outputs, numb_hidden_nodes, v, w, input)
+        output_codes.append(class_val_code)
+    return output_codes
