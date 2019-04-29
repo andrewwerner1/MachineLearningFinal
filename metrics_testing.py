@@ -43,6 +43,28 @@ def find_precision(y_pred, y_actual):
                 false_positive += 1
     return true_positive / (true_positive + false_positive)
 
+
+def find_precision_multiclass(y_pred, y_actual, class_values):
+    sum = 0
+    for class_val in class_values:
+        sum += find_precision_multiclass_helper(y_pred, y_actual, class_val)
+    numb_of_class_vals = len(class_values)
+    return sum / numb_of_class_vals
+
+def find_precision_multiclass_helper(y_pred, y_actual, correct_class_val):
+    #make very small value to avoid divide by zero
+    true_positive = 1E-15
+    false_positive = 0
+    for i in range(0, len(y_pred)):
+        estimated_class_val = y_pred[i]
+        class_val = y_actual[i]
+        if float(estimated_class_val) == float(correct_class_val):
+            if(float(class_val) == float(correct_class_val)):
+                true_positive += 1
+            else:
+                false_positive += 1
+    return true_positive / (true_positive + false_positive)
+
 #only use for binary classification problems
 def find_recall(y_pred, y_actual):
     true_positive = 1E-15
@@ -52,6 +74,27 @@ def find_recall(y_pred, y_actual):
         class_val = y_actual[i]
         if (float(class_val) == float(1)):
             if(float(estimated_class_val) == float(1)):
+                true_positive += 1
+            else:
+                false_negative += 1
+    return true_positive / (true_positive + false_negative)
+
+
+def find_recall_multiclass(y_pred, y_actual, class_values):
+    sum = 0
+    for class_val in class_values:
+        sum += find_recall_multiclass_helper(y_pred, y_actual, class_val)
+    numb_of_classes = len(class_values)
+    return sum / numb_of_classes
+
+def find_recall_multiclass_helper(y_pred, y_actual, correct_class_val):
+    true_positive = 1E-15
+    false_negative = 0
+    for i in range(0, len(y_pred)):
+        estimated_class_val = y_pred[i]
+        class_val = y_actual[i]
+        if (float(class_val) == float(correct_class_val)):
+            if(float(estimated_class_val) == float(correct_class_val)):
                 true_positive += 1
             else:
                 false_negative += 1

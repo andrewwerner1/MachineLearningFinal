@@ -30,6 +30,8 @@ for point in data:
         point[class_index] = '3'
 
 
+class_values = [0, 1, 2, 3]
+
 #remove data points with missing attributes (since there are only 16 out of over 600 data points)
 common.remove_points_with_missing_attributes(data)
 
@@ -180,7 +182,11 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 2')
@@ -194,7 +200,11 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 3')
@@ -208,7 +218,11 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 4')
@@ -222,7 +236,11 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 5')
@@ -236,7 +254,11 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 
@@ -251,7 +273,11 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 7')
@@ -265,7 +291,11 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 8')
@@ -279,7 +309,11 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 9')
@@ -293,7 +327,11 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 10')
@@ -307,5 +345,9 @@ x_test, y_test = data_handler.split_data_into_XY(test_set, class_index, first_at
 estimated_output = Knn.K_Nearest_Neighbor(x_train, x_test, y_train, y_test, k, True)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')

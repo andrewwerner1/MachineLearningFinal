@@ -33,7 +33,10 @@ def fint_dot_product(vector1, vector2):
 #computes sigmoid function of two vectors
 def sigmoid(w_h, point):
     dot_product_val = fint_dot_product(w_h, point)
-    sigmoid_val = 1 / (1 + math.pow(math.e, -1 * dot_product_val))
+    try:
+        sigmoid_val = 1 / (1 + math.pow(math.e, -1 * dot_product_val))
+    except OverflowError:
+        sigmoid_val = 1E5
     return sigmoid_val
 
 #Computes weights that connect with output layer for 2-layer network

@@ -1,93 +1,114 @@
-# -*- coding: utf-8 -*-
 import numpy as np
+import common
+from random import shuffle
 import metrics_testing as mt
-import math
-import GetData as dataHandler
-
-#Used this as a reference https://pytorch.org/tutorials/beginner/pytorch_with_examples.html
-
-#def load_data(filename):
-#    dataset = np.loadtxt(filename, delimiter=",")
-#    X = dataset[:, 1:56]
-#    Y_data = dataset[:, 0]
-#   #Create a container array around Y
-#    Y = np.array(np.array(Y_data))
-#    return X,Y
+# N is batch size; D_in is input dimension;
 
 
-def sigmoid(x):
-    return 1 / (1 + math.exp(-x))
+def split_into_x_y(data, class_index):
+    x = []
+    y = []
+    for point in data:
+        x_row = []
+        y_row = []
+        for j in range(len(point)):
+            val = point[j]
+            if j == class_index:
+                y_row.append(val)
+            else:
+                x_row.append(val)
+        x.append(x_row)
+        y.append(y_row)
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    return x,y
 
-
-def make_predictions(x_input, y_output, w1, w2, classification):
-    # Forward pass: compute predicted y
-    h = x_input.dot(w1)
-    h_relu = np.maximum(h, 0)
-    y_pred = h_relu.dot(w2)
-    return y_pred
-    #accuracy = 1 - ((np.square(y_pred - y_output).sum()) / len(y_pred))
-
-
-
-
-def train_model(x_train, y_train, w1, w2, learning_rate, classification ):
-    for t in range(200000):
+def train_model(x, y):
+    # Randomly initialize weights
+    w1 = np.random.randn(D_in, H)
+    w2 = np.random.randn(H, D_out)
+    for t in range(500):
         # Forward pass: compute predicted y
-        h = x_train.dot(w1)
+        h = x.dot(w1)
         h_relu = np.maximum(h, 0)
         y_pred = h_relu.dot(w2)
-        #if(classification):
-        #    y_pred = sigmoid(y_pred)
 
         # Compute and print loss
-        loss = np.square(y_pred[0] - y_train).sum()
-        #loss =
+        #loss = np.square(y_pred - y).sum()
+        loss = 0
+        for i in range(len(y)):
+            y_i = y[i]
+            y_pred_i = y_pred[i]
+            if(np.argmax(y_pred_i) == 0 and y_i != 0):
+                loss +=1
+            elif(np.argmax(y_pred_i) == 1 and y_i != 1):
+                loss +=1
+            elif(np.argmax(y_pred_i) == 2 and y_i != 2):
+                loss +=1
+
         print(t, loss)
 
         # Backprop to compute gradients of w1 and w2 with respect to loss
-        grad_y_pred = 2.0 * (y_pred - y_train)
+        grad_y_pred = 2.0 * (y_pred - y)
         grad_w2 = h_relu.T.dot(grad_y_pred)
         grad_h_relu = grad_y_pred.dot(w2.T)
         grad_h = grad_h_relu.copy()
         grad_h[h < 0] = 0
-        grad_w1 = x_train.T.dot(grad_h)
+        grad_w1 = x.T.dot(grad_h)
 
         # Update weights
         w1 -= learning_rate * grad_w1
         w2 -= learning_rate * grad_w2
-
-    #return weights
     return w1, w2
 
+def predict_output(w1, w2, test_set, actual_output):
+    # Forward pass: compute predicted y
+    predicted_output = []
+    for i in range(len(test_set)):
+        point = test_set[i]
+        h = point.dot(w1)
+        h_relu = np.maximum(h, 0)
+        y_pred = h_relu.dot(w2)
+        y_pred = y_pred[0]
+        max_index = np.argmax(y_pred)
+        #print('predicted' + str(max_index))
+        #print('actual' + str(actual_output[i]))
+        predicted_output.append(max_index)
+    return predicted_output
 
 
-# N is batch size; D_in is input dimension;
 # H is hidden dimension; D_out is output dimension.
-N, D_in, H, D_out = 159, 4, 100, 159
+N, D_in, H, D_out = 64, 9, 100, 2
 
-# Create random input and output data
-x = np.random.randn(N, D_in)
-#print(x)
-y = np.random.randn( D_out)
-#print(y)
-
-filename = "C:/Users/andre/PycharmProjects/MachineLearningFinal/Data/Iris.csv"
-dataset = dataHandler.get_data_from_file(filename)
-x_test, y_test = dataHandler.split_data_into_XY(dataset, class_index=0, first_attribute_index=1, last_attribute_index=56)
-
-# Randomly initialize weights
-w1 = np.random.randn(D_in, H)
-w2 = np.random.randn(H, D_out)
 
 learning_rate = 1e-6
 
-w1, w2 = train_model(x_test, y_test, w1, w2, learning_rate, classification=True)
+data = common.read_csv("C:/Users/andre/PycharmProjects/MachineLearningFinal/Data/breastCancer.csv")
 
-y_pred = make_predictions(x, y_test, w1, w2, classification=True)
-print('predictions')
-print(y_pred)
-print('actual output')
-print(y_test)
-accuracy = mt.find_accuracy(y_pred, y_test, classification=True)
-print('accuracy')
+
+class_index = 9
+
+
+#update class lables 2=>0 and 4=> 1
+for point in data:
+    if point[class_index] == '2':
+        point[class_index] = '0'
+    elif point[class_index] == '4':
+        point[class_index] = '1'
+
+
+#remove data points with missing attributes (since there are only 16 out of over 600 data points)
+common.remove_points_with_missing_attributes(data)
+
+
+
+
+shuffle(data)
+print(len(data))
+x,y = split_into_x_y(data, class_index)
+w1, w2 = train_model(x, y)
+
+output = predict_output(w1, w2, x, y)
+
+accuracy = mt.find_accuracy(output, y)
 print(accuracy)

@@ -120,12 +120,13 @@ shuffle(set10)
 
 #define tunable parameters
 numb_hidden_nodes = 3
-numb_iterations = 0
+numb_iterations = 50
 numb_outputs = 2
 learning_rate = 0.1
 
 print('Test 1')
 training_set = set1 + set2 + set3 + set4 + set5 + set6 + set7 + set8 + set9
+#training_set = set1 + set2 + set3
 test_set = set10
 v, w = b.find_model_1_hidden_layer(training_set, class_index, numb_hidden_nodes, numb_iterations, numb_outputs, learning_rate)
 print('v weights found: ' + str(v) )
