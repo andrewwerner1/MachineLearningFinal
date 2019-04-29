@@ -15,9 +15,9 @@ data = common.read_csv('C:/Users/andre/PycharmProjects/MachineLearningFinal/Data
 
 
 
-common.remove_nth_column(data, 0)
 
-class_index = 12
+
+class_index = 13
 class_values = [0, 1, 2, 3, 4]
 
 #remove data points with missing attributes (since there are only 16 out of over 600 data points)

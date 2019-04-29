@@ -45,7 +45,6 @@ def split_data_in_ten_parts(data,  class_index):
     listClass0 = []
     listClass1 = []
     listClass2 = []
-    listClass3 = []
     data_copy = copy.deepcopy(data)
 
     for point in data_copy:
@@ -56,8 +55,6 @@ def split_data_in_ten_parts(data,  class_index):
             listClass1.append(point)
         elif(float(class_val) == float('2')):
             listClass2.append(point)
-        else:
-            listClass3.append(point)
     for i in range(0, len(listClass0)):
         point = listClass0[i]
         if((i % 10) == 0):
@@ -124,28 +121,6 @@ def split_data_in_ten_parts(data,  class_index):
             list9.append(point)
         elif((i % 10) == 9):
             list10.append(point)
-    for i in range(0, len(listClass3)):
-        point = listClass3[i]
-        if((i % 10) == 0):
-            list1.append(point)
-        elif((i % 10) == 1):
-            list2.append(point)
-        elif((i % 10) == 2):
-            list3.append(point)
-        elif((i % 10) == 3):
-            list4.append(point)
-        elif((i % 10) == 4):
-            list5.append(point)
-        elif((i % 10) == 5):
-            list6.append(point)
-        elif((i % 10) == 6):
-            list7.append(point)
-        elif((i % 10) == 7):
-            list8.append(point)
-        elif((i % 10) == 8):
-            list9.append(point)
-        elif((i % 10) == 9):
-            list10.append(point)
     return list1, list2, list3, list4, list5, list6, list7, list8, list9, list10
 
 
@@ -165,7 +140,7 @@ shuffle(set10)
 #define tunable parameters
 numb_hidden_nodes = 2
 numb_iterations = 50
-numb_outputs = 4
+numb_outputs = 3
 learning_rate = 0.1
 k=3
 

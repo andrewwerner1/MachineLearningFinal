@@ -16,7 +16,7 @@ data = common.read_csv('C:/Users/andre/PycharmProjects/MachineLearningFinal/Data
 class_index = 13
 first_attribute_index = 0
 last_attribute_index = 12
-
+class_values = [0, 1, 2, 3, 4]
 
 
 
@@ -40,6 +40,7 @@ def split_data_in_ten_parts(data,  class_index):
     listClass1 = []
     listClass2 = []
     listClass3 = []
+    listClass4 = []
     data_copy = copy.deepcopy(data)
 
     for point in data_copy:
@@ -50,8 +51,10 @@ def split_data_in_ten_parts(data,  class_index):
             listClass1.append(point)
         elif(float(class_val) == float('2')):
             listClass2.append(point)
-        else:
+        elif(float(class_val) == float('3')):
             listClass3.append(point)
+        else:
+            listClass4.append(point)
     for i in range(0, len(listClass0)):
         point = listClass0[i]
         if((i % 10) == 0):
@@ -140,6 +143,28 @@ def split_data_in_ten_parts(data,  class_index):
             list9.append(point)
         elif((i % 10) == 9):
             list10.append(point)
+    for i in range(0, len(listClass4)):
+        point = listClass4[i]
+        if((i % 10) == 0):
+            list1.append(point)
+        elif((i % 10) == 1):
+            list2.append(point)
+        elif((i % 10) == 2):
+            list3.append(point)
+        elif((i % 10) == 3):
+            list4.append(point)
+        elif((i % 10) == 4):
+            list5.append(point)
+        elif((i % 10) == 5):
+            list6.append(point)
+        elif((i % 10) == 6):
+            list7.append(point)
+        elif((i % 10) == 7):
+            list8.append(point)
+        elif((i % 10) == 8):
+            list9.append(point)
+        elif((i % 10) == 9):
+            list10.append(point)
     return list1, list2, list3, list4, list5, list6, list7, list8, list9, list10
 
 
@@ -159,7 +184,7 @@ shuffle(set10)
 #define tunable parameters
 numb_hidden_nodes = 5
 numb_iterations = 50
-numb_outputs = 4
+numb_outputs = 5
 learning_rate = 0.1
 k=3
 
@@ -180,9 +205,11 @@ print('w weights found: ' + str(w))
 estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
-print('error: ' + str(error))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 2')
@@ -202,9 +229,11 @@ print('w weights found: ' + str(w))
 estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
-print('error: ' + str(error))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 3')
@@ -224,9 +253,11 @@ print('w weights found: ' + str(w))
 estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
-print('error: ' + str(error))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 4')
@@ -246,9 +277,11 @@ print('w weights found: ' + str(w))
 estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
-print('error: ' + str(error))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 5')
@@ -268,9 +301,11 @@ print('w weights found: ' + str(w))
 estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
-print('error: ' + str(error))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 
@@ -291,9 +326,11 @@ print('w weights found: ' + str(w))
 estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
-print('error: ' + str(error))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 7')
@@ -313,9 +350,11 @@ print('w weights found: ' + str(w))
 estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
-print('error' + str(error))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 8')
@@ -335,9 +374,11 @@ print('w weights found: ' + str(w))
 estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
-print('error: ' + str(error))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 9')
@@ -357,9 +398,11 @@ print('w weights found: ' + str(w))
 estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
-print('error: ' + str(error))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
 
 print('Test 10')
@@ -379,7 +422,9 @@ print('w weights found: ' + str(w))
 estimated_output = b.get_estimated_output(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
 actual_output = data_handler.get_class_labels(test_set, class_index)
 accuracy = mt.find_accuracy(estimated_output, actual_output)
-error = b.test_model(test_set, class_index, numb_hidden_nodes, numb_outputs, v, w)
+precision = mt.find_precision_multiclass(estimated_output, actual_output, class_values)
+recall = mt.find_recall_multiclass(estimated_output, actual_output, class_values)
 print('measured accuracy: ' + str(accuracy))
-print('error: ' + str(error))
+print('measured precision: ' + str(precision))
+print('measured recall: ' + str(recall))
 print('\n')
